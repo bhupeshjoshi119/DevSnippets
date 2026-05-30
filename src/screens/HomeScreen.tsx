@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { View, Text, FlatList, TouchableOpacity, ActivityIndicator, TextInput } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, Modal, ActivityIndicator, TextInput } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { useSnippets } from '../hooks/useSnippets';
 import { Snippet } from '../types';
-import { useRouter } from 'expo-router';
+import { createStackNavigator } from '@react-navigation/stack';
+import { useNavigation } from '@react-navigation/native';
 
-export default function HomeScreen() {
+export const HomeScreen = () => {
   const { snippets, loading, error, refreshSnippets, deleteSnippet, toggleFavorite } = useSnippets();
-  const router = useRouter();
+  const navigation = useNavigation();
   const [searchTerm, setSearchTerm] = useState('');
   const [refreshing, setRefreshing] = useState(false);
 
@@ -25,7 +26,7 @@ export default function HomeScreen() {
   const renderItem = ({ item }: { item: Snippet }) => (
     <TouchableOpacity
       style={{ padding: 16, borderBottomWidth: 1, borderBottomColor: '#eee' }}
-      onPress={() => router.push(`/snippet-details/${item.id}`)}
+      onPress={() => navigation.navigate('SnippetDetails', { snippetId: item.id })}
     >
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
         <Text style={{ fontWeight: 'bold', flexShrink: 1 }}>{item.title}</Text>
@@ -81,7 +82,7 @@ export default function HomeScreen() {
             paddingHorizontal: 16,
           }}
         />
-        <TouchableOpacity onPress={() => router.push('/create-snippet')} style={{ marginLeft: 8 }}>
+        <TouchableOpacity onPress={() => navigation.navigate('CreateSnippet')} style={{ marginLeft: 8 }}>
           <Feather name="plus-circle" size={24} color="#007AFF" />
         </TouchableOpacity>
       </View>
@@ -106,4 +107,4 @@ export default function HomeScreen() {
       />
     </View>
   );
-}
+};
