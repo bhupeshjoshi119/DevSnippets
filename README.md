@@ -1,56 +1,184 @@
-# Welcome to your Expo app 👋
+# Async Storage - Code Snippet Manager
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A cross-platform mobile application for managing code snippets built with Expo and React Native. This app allows developers to save, organize, and quickly access their frequently used code snippets across different programming languages.
 
-## Get started
+## Features
 
-1. Install dependencies
+- **Save Snippets**: Store code snippets with titles, languages, and tags
+- **Search & Filter**: Easily find snippets by title, language, or tags
+- **Favorites**: Mark snippets as favorites for quick access
+- **Organization**: View snippets in a clean, sortable list
+- **Cross-Platform**: Works on iOS, Android, and Web
+- **Persistent Storage**: Uses AsyncStorage for reliable data persistence
+- **Modern UI**: Clean interface with intuitive navigation
 
-   ```bash
-   npm install
-   ```
+## Tech Stack
 
-2. Start the app
+- **Framework**: [Expo](https://expo.dev) (SDK 55)
+- **Language**: TypeScript
+- **State Management**: Custom hooks with Context API
+- **Navigation**: [Expo Router](https://docs.expo.dev/router/introduction/) (file-based routing)
+- **UI Components**: React Native core components + Expo Vector Icons
+- **Data Persistence**: [@react-native-async-storage/async-storage](https://github.com/react-native-async-storage/async-storage)
+- **Additional Libraries**:
+  - React Navigation (Bottom Tabs, Elements)
+  - Expo Constants, Device, Font, Glass Effect, Image, Linking, Splash Screen, SQLite, Status Bar, Symbols, System UI, Web Browser
+  - React Native Gesture Handler, Reanimated, Safe Area Context, Screens, Web, Worklets
+  - Expo Secure Store
+  - Expo Vector Icons
 
-   ```bash
-   npx expo start
-   ```
+## Getting Started
 
-In the output, you'll find options to open the app in a
+### Prerequisites
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- Node.js (v18 or later)
+- npm or yarn
+- Expo CLI
+- iOS Simulator (Mac) or Android Studio (for Android emulators)
+- Physical device for testing (optional but recommended)
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+### Installation
 
-## Get a fresh project
+1. Clone the repository
+```bash
+git clone <repository-url>
+cd async-storage
+```
 
-When you're ready, run:
+2. Install dependencies
+```bash
+npm install
+```
+
+3. Start the development server
+```bash
+npm start
+```
+
+4. Choose your preferred platform:
+   - Press `a` to open on Android emulator
+   - Press `i` to open on iOS simulator
+   - Press `w` to open in web browser
+   - Scan the QR code with Expo Go app on your physical device
+
+## Project Structure
+
+```
+src/
+├── app/                    # Expo Router pages (file-based routing)
+│   ├── index.tsx          # Home screen - snippet list
+│   ├── create-snippet.tsx # Create new snippet form
+│   ├── snippet-details.tsx # View/edit snippet details
+│   ├── favorites.tsx      # Favorite snippets collection
+│   ├── file-manager.tsx   # File management interface
+│   └── settings.tsx       # Application settings
+├── components/             # Reusable UI components
+├── hooks/                  # Custom React hooks
+│   └── useSnippets.ts     # Snippet data management hook
+├── database/               # Database utilities
+│   └── snippetDB.ts       # AsyncStorage wrapper for snippets
+├── screens/                # Alternative screen implementations
+├── services/               # External service integrations
+│   └── aiService.ts       # AI-powered snippet suggestions
+├── types.ts               # TypeScript type definitions
+└── assets/                 # Static assets (images, icons, etc.)
+```
+
+## Key Features Explained
+
+### Snippet Management
+Each snippet includes:
+- Title
+- Code content
+- Programming language
+- Tags (for categorization)
+- Favorite status
+- Creation/update timestamps
+
+### Search Functionality
+- Real-time filtering as you type
+- Searches across titles, languages, and tags
+- Clear search button for resetting filters
+
+### Favorite System
+- Toggle favorite status with star icon
+- Dedicated favorites tab for quick access
+- Visual indication of favorite snippets
+
+### Platform Support
+- **iOS**: Full support with native look and feel
+- **Android**: Material Design compliant interface
+- **Web**: Responsive layout that adapts to browser window
+- **Expo Go**: Quick testing without native builds
+
+## Development
+
+### Available Scripts
 
 ```bash
+# Start development server
+npm start
+
+# Start on specific platforms
+npm run android
+npm run ios
+npm run web
+
+# Lint code
+npm run lint
+
+# Reset project to initial state
 npm run reset-project
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### Environment Variables
 
-### Other setup steps
+Create a `.env` file in the root directory for environment-specific variables:
+```
+# Example environment variables
+EXPO_PUBLIC_API_URL=https://api.example.com
+```
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+## Building for Production
 
-## Learn more
+### Create Development Builds
+```bash
+expo prebuild
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+### Create Production Builds
+```bash
+# For iOS
+expo build:ios
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+# For Android
+expo build:android
 
-## Join the community
+# For web
+expo export:web
+```
 
-Join our community of developers creating universal apps.
+## Contributing
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+Please make sure to update tests as appropriate and follow the existing code style.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- [Expo Team](https://expo.dev) for the amazing development platform
+- [React Native Community](https://reactnative.dev) for the core framework
+- [Async Storage Contributors](https://github.com/react-native-async-storage/async-storage) for the storage solution
+- All contributors to the open-source libraries used in this project
+
+---
+
+Happy coding! 🚀
